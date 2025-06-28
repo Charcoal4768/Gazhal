@@ -1,6 +1,8 @@
 # Gazhal
 UniqueSiteShowcase
 
+See the website in action: https://charcoal4768.pythonanywhere.com/
+
 This is a showcase of a unique, non-standard website. It is an example piece to show that i understand UI/UX design and i can make functional websites that are more than just the same old beginner projects.
 This was my 2nd ever website, i've imrpoved since then.
 This example is just to showcase something to potential future employers.
