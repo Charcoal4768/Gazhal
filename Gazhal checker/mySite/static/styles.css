@@ -1,0 +1,475 @@
+:root{
+	--col1:#000;
+	--col2:#050a30;
+	--col3:#051b40;
+	--col4:#aaacaf;
+	--col5:#f4f6fc;
+	--col6:#fff;
+}
+
+body{
+	margin: 0;
+	font-family: sans-serif;
+	overflow-x: hidden;
+}
+body {
+	scrollbar-width: thin;
+}
+
+.item{
+	width: 100%;
+}
+
+.pageLander {
+	margin: 0;
+	background-color: var(--col2);
+	background-size: cover;
+	color: var(--col6);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	font-size: clamp(2rem, 10vw, 10rem); /* this is the new magic line */
+	font-family: sans-serif;
+	width: 100vw;
+	height: 100vh;
+	padding: 0;
+	position: relative;
+	overflow: hidden;
+	box-sizing: border-box;
+	z-index: 99;
+}
+
+.pageLander h1, .pageLander h3 {
+	margin: 0;
+	line-height: 1.1;
+}
+.subheadGlow h3 {
+	animation: flicker 2.5s infinite;
+	color: white;
+	font-weight: bold;
+	transition: text-shadow 200ms ease-in-out;
+}
+
+@keyframes flicker {
+	0%, 18%, 22%, 25%, 53%, 57%, 100% {
+		text-shadow:
+			0 0 40px rgba(255,255,255,0.2),
+			0 0 80px rgba(255,255,255,0.2),
+			0 0 15px rgba(255,255,255,0.1);
+	}
+	20%, 24%, 55% {
+		text-shadow:
+			0 0 80px rgba(255,255,255,0.5),
+			0 0 16px rgba(255,255,255,0.8),
+			0 0 32px rgba(255,255,255,0.6);
+	}
+}
+
+nav{
+	display: flex;
+	float: left;
+	margin: 0;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	background-color: var(--col2);
+	z-index: 9999;
+}
+nav button{
+	display: none;
+}
+nav ul{
+	list-style: none;
+	display: flex;
+	padding: 0;
+	float: left;
+}
+nav ul li{
+	font-size: clamp(1.2rem, 3vh, 1.8rem);
+}
+nav li a{
+	display: block;
+	position: relative;
+	text-decoration: none;
+	padding: 5px 15px;
+	color: var(--col5);
+	transition: 300ms ease-in-out;
+}
+nav li a:after{
+	content: '';
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	background-color: var(--col5);
+	height: 2px;
+	width: 0px;
+	transition: 300ms ease-in-out;
+}
+nav li a:hover:after{
+	width: 100%;
+}
+nav li a:hover{
+	transform: translateY(-5px) scale(1.2);
+	text-shadow: 2px 2px 40px rgba(255,255,255,0.2), -2px -2px 40px rgba(255, 255, 255, 0.3);
+}
+nav ul:hover li:not(:hover) a {
+	color: var(--col4); /* Dim the others */
+}
+.rain {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	pointer-events: none;
+	z-index: 1; /* behind text but above background */
+	overflow: hidden;
+}
+
+.drop {
+	position: absolute;
+	top: -20px;
+	width: 1px;
+	height: 50px;
+	background: rgba(255, 255, 255, 0.1); /* soft white-gray */
+	animation: fall linear infinite;
+}
+.drop.front {
+	background: rgba(255, 255, 255, 0.35); /* brighter */
+	height: 60px; /* a bit longer for “closer” effect */
+	width: 1.5px; /* slightly thicker */
+}
+
+
+@keyframes fall {
+	to {
+		transform: translateY(110vh); /* fall all the way down */
+	}
+}
+.scrlBtn{
+	display: block;
+	margin: 0;
+}
+.scrlBtn button{
+	border: none;
+	cursor: pointer;
+	padding: 8px 10px;
+	font-size: clamp(1.5rem, 8vw, 8rem);
+	background: transparent;
+	color:rgba(255, 255, 255, 0.3);
+	animation: appear 15s linear forwards;
+}
+@keyframes appear{
+	0%{opacity: 0;}
+	25%{opacity: 0.25;}
+	50%{opacity: 0.5;}
+	75%{opacity: 0.75;}
+	100%{opacity: 1;}
+}
+.gazhalWrapper {
+	display: flex;
+	flex-wrap: wrap;
+	width: 100%;
+	min-height: 100vh;
+	background-color: var(--col5);
+}
+
+.gazhalWrapper form {
+	display: flex;
+	flex-wrap: wrap;
+	width: 100%;
+	min-height: 100%;
+}
+
+.gazhalContent, .gazhalFooter {
+	flex: 1 1 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 2rem;
+	box-sizing: border-box;
+}
+
+.gazhalContent {
+	background-color: var(--col5);
+}
+
+.gazhalFooter {
+	background-color: var(--col5);
+	flex-direction: column;
+	color: var(--col6);
+	text-align: center;
+	transform: translateY(-20px);
+}
+
+.gazhalContent textarea {
+	width: 100%;
+	height: 55vh;
+	padding: 1rem;
+	outline: none;
+	border: none;
+	border-radius: 1rem;
+	background-color: var(--col2);
+	color: var(--col6);
+	font-size: 1.5rem;
+	font-family: monospace;
+	resize: none;
+	box-shadow: 0 0 10px rgba(255,255,255,0.1);
+}
+
+.gazhalFooter h2 {
+	color: var(--col2);
+	font-size: clamp(1.5rem, 8vh, 6rem);
+	margin-bottom: 1.5rem;
+}
+
+.gazhalFooter button {
+	background-color: var(--col2);
+	color: var(--col6);
+	border: none;
+	padding: 1rem 2rem;
+	border-radius: 1rem;
+	font-size: clamp(1rem, 8vw, 6rem);
+	font-weight: bold;
+	cursor: pointer;
+	transition: transform 0.2s ease, background 0.3s ease;
+}
+
+.gazhalFooter button:hover {
+	transform: scale(1.05);
+	background-color: var(--col3);
+	box-shadow: 5px 5px 40px rgba(255,55,255,0.3), -5px -5px 20px rgba(255, 255, 255, 0.4);
+}
+
+.formWrapper{
+	text-align: left;
+	display: block;
+	width: 90%;
+	max-width: 800px;
+	padding: 20px 0px;
+	margin: auto;
+	margin-top: 20vh;
+	border-radius: 18px;
+	border-top: 6px solid var(--col1);
+	border-top-right-radius: 0;
+	border-top-left-radius: 0;
+	backdrop-filter: blur(1px);
+	background-color: rgba(255, 255, 255, 0.3);
+	box-shadow: 5px 5px 40px rgba(0, 0, 0, 0.2);
+	color: var(--col3);
+	z-index: 90;
+
+}
+.formContent{
+	padding: 15px 15px;
+	display: flex;
+	flex-direction: column;
+	min-height: 50vh;
+	justify-content: space-evenly;
+
+}
+.formContent label{
+	padding: 5px 15px;
+	font-size: clamp(1rem, 2.5vh, 1.5rem);
+}
+.formContent input{
+	display: block;
+	border: none;
+	outline: none;
+	padding: 10px 10px;
+	width: 90%;
+	margin: auto;
+	font-size: clamp(1rem, 2.5vh, 1.5rem);
+	border-radius: 8px;
+	background: linear-gradient(200deg,var(--col5),var(--col6));
+	transition: 300ms ease-in-out;
+}
+.formContent input:placeholder{
+	color: red;
+}
+.formContent input:focus{
+	box-shadow: 5px 5px 40px rgba(5, 27, 64, 0.2), -5px -5px 40px rgba(200, 55, 255, 0.1);
+}
+.formFooter{
+	display: block;
+	margin: auto;
+	justify-content: center;
+	text-align: center;
+}
+.formFooter button {
+	background-color: var(--col2);
+	color: var(--col6);
+	border: none;
+	padding: 1rem 2rem;
+	border-radius: 1rem;
+	font-size: clamp(1rem, 2.5vh, 1.5rem);
+	font-weight: bold;
+	cursor: pointer;
+	transition: transform 0.2s ease, background 0.3s ease;
+}
+
+.formFooter button:hover {
+	transform: scale(1.05);
+	background-color: var(--col3);
+	box-shadow: 5px 5px 40px rgba(255,55,255,0.3), -5px -5px 20px rgba(255, 255, 255, 0.4);
+}
+
+/* RESPONSIVE STACKING */
+@media (max-width: 1100px) {
+	.gazhalContent, .gazhalFooter {
+		flex: 1 1 100%;
+		height: auto;
+	}
+
+	.gazhalContent textarea {
+		height: 500px;
+		margin-bottom: 0;
+	}
+	.gazhalFooter img{
+		display: none;
+	}
+	.gazhalFooter h2{
+		display: none;
+	}
+}
+ul {
+	list-style: none;
+}
+.analysisWrapper {
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.analysisUL {
+	clear: left;
+	display: flex;
+	flex-direction: column;
+}
+.analysisUL ul li {
+	clear: left;
+	display: block;
+	margin: auto;
+	margin-bottom: 0px;
+}
+.outUL {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 20px;
+}
+.analysisUL ul {
+	padding: 0;
+	margin: 0;
+}
+.analysisUL li {
+	padding-left: 10px;
+	padding-right: 10px;
+}
+.lineCard {
+  background-color: var(--col5);
+  color: var(--col2);
+  padding: 1.5rem;
+  margin: 1rem 0;
+  border-radius: 1.5rem;
+  box-shadow: 0 0 15px rgba(255,255,255,0.1);
+  width: 90%;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  transition: transform 0.3s ease-in-out;
+}
+.lineCard:hover {
+  transform: scale(1.02);
+}
+
+.lineText {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.segmentGrid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.segmentBlock {
+  color: var(--col2);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  background-color: var(--col5);
+  padding: 5px 10px;
+}
+
+.segment {
+  font-size: 1.1rem;
+  font-family: monospace;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.score {
+  font-size: 0.9rem;
+  opacity: 0.7;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.flashWrapper {
+	display: flex;
+	float: left;
+	position: absolute;
+	top: 80px; /* adjust based on your nav height */
+	width: 100%;
+	z-index: 9998; /* slightly under nav */
+}
+
+.flash {
+	display: block;
+	background-color: var(--col6);
+	color: var(--col2);
+	padding: 1rem 2rem;
+	margin: 0;
+	font-size: 1.2rem;
+	box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+	animation: fadein 0.3s ease;
+}
+
+.flashTail {
+	display: block;
+}
+
+.flashTail button {
+	background: none;
+	border: none;
+	color: red;
+	font-size: 1.2rem;
+	cursor: pointer;
+	transform: translateY(10px);
+}
+@keyframes fadein {
+	from { opacity: 0; transform: translateY(-10px); }
+	to { opacity: 1; transform: translateY(0); }
+}
+input[type="radio"]{
+	background-color: red;
+	font-size: clamp(1rem, 2.5vh, 2rem);
+}
+.segmentBlock.green {
+  background-color: #e6ffed;   /* or whatever “light green” you like */
+}
+
+.segmentBlock.red {
+  background-color: #ffe6e6;   /* light red */
+}

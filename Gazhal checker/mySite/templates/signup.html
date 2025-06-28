@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block Title %}Sign Up{% endblock %}
+{% block content %}
+<main>
+<div class="pageLander" style="background-color: var(--col6);">
+  <div class="rain">
+    <!-- raindrops -->
+{% for i in range(20) %}
+  {% set left = range(2, 95)|random %}
+  {% set duration = (0.6 + (range(0, 50)|random) / 100)|round(2) %}
+  {% set delay = (range(0, 300)|random / 100)|round(2) %}
+  {% set opacity = (range(3, 10)|random / 10)|round(1) %}
+  {% set col = (range(1,4)|random /10) %}
+  <div 
+    class="drop{% if i % 3 == 0 %} front{% endif %}" 
+    style="
+      left: {{ left }}vw;
+      animation-duration: {{ duration }}s;
+      animation-delay: {{ delay }}s;
+      opacity: {{ opacity }};
+      width: 2px;
+      background-color: rgba(0, 0, 0,{{col}});">
+  </div>
+{% endfor %}
+
+  </div>
+	<div class="formWrapper">
+		<form method="POST">
+			<div class="formContent">
+				<label>Username</label>
+				<input type="text" name="name" placeholder="Username">
+				<label>Email</label>
+				<input type="text" name="email" placeholder="Email">
+				<label>Password</label>
+				<input type="text" name="pass1"
+				placeholder="Password" id="p1">
+				<label>Confirm Password</label>
+				<input type="text" name="pass2" placeholder="Confirm Password" id="p2">
+				<label>Show password?</label>
+				<input type="radio" name="test">
+			</div>
+			<div class="formFooter">
+				<button type="submit">Register</button>
+			</div>
+		</form>
+	</div>
+</div>
+</main>
+{% endblock %}
