@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='styles.css')}}">
+	<title>{% block Title %}Home{% endblock %}</title>
+	<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+	<link rel="icon" type="image/png" href="{{url_for('static',filename='favicon-96x96.png')}}" sizes="96x96" />
+	<link rel="icon" type="image/svg+xml" href="{{url_for('static',filename='favicon.svg')}}" />
+	<link rel="shortcut icon" href="{{url_for('static',filename='favicon.ico')}}" />
+	<link rel="apple-touch-icon" sizes="180x180" href="{{url_for('static',filename='apple-touch-icon.png')}}" />
+	<link rel="manifest" href="/site.webmanifest" />
+	<script type="text/javascript">
+		function scrollToMain() {
+			document.querySelector('#main').scrollIntoView({
+				behavior: 'smooth'
+			});
+		}
+	</script>
+	<script>
+		document.addEventListener("DOMContentLoaded", function() {
+		const hasAnalysis = {{ 'true' if lines else 'false' }};
+		if (hasAnalysis) {
+			document.querySelector("#anal").scrollIntoView({
+			behavior: 'smooth'
+			});
+		}
+		});
+	</script>
+	<script>
+		document.addEventListener("DOMContentLoaded", function() {
+			if (window.history.replaceState) {
+				window.history.replaceState(null, null, window.location.href);
+			}
+		});
+	</script>
+	<script type="text/javascript">
+		function DESTRUCTION(id,id2) {
+			let a = document.getElementById(id);
+			let b = document.getElementById(id2);
+			a.remove();
+			b.remove();
+		}
+		function togglePass() {
+			let a = document.getElementById("p2");
+			let b = document.getElementById("p1");
+		}
+	</script>
+</head>
+<body>
+<nav>
+	<ul>
+		<button onclick="DESTRUCTION()"><i class='bx bx-menu'></i></button>
+		<li><a href="{{url_for('roads.home')}}"><img src="{{url_for('static',filename='favicon-96x96.png')}}" height="24px" width="24px"></a></li>
+		<li><a href="{{url_for('roads.home')}}">Home</a></li>
+		{% if not user.is_authenticated %}
+		<li><a href="{{url_for('auth.signup')}}">SignUp</a></li>
+		<li><a href="{{url_for('auth.login')}}">LogIn</a></li>
+		{% elif user.is_authenticated %}
+		<li><a href="{{url_for('auth.logout')}}">LogOut</a></li>
+		{% endif %}
+	</ul>
+</nav>
+<div class="flashWrapper">
+	{% set count = 0 %}
+	{% for mes in get_flashed_messages() %}
+	{% set count = count+1 %}
+	<div class="flash" id="fl{{count}}">{{mes}}</div>
+	<div class="flashTail" id="bt{{count}}"><button onclick="DESTRUCTION('fl{{count}}','bt{{count}}')"><i class='bx bx-x'></i></button></div>
+	{% endfor %}
+</div>
+	{% block content %}
+	{% endblock %}
+</body>
+</html>

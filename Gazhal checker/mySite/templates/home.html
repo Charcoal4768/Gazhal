@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% block Title %}Home{% endblock %}
+{% block content %}
+<br/>
+<div class="pageLander">
+  <div class="rain">
+    {% for i in range(20) %}
+      {% set left = 2+range(93)|random %}
+      {% set duration = (0.6 + (range(0, 50)|random) / 100)|round(2) %}
+      {% set delay = (range(0, 300)|random / 100)|round(2) %}
+      {% set opacity = (range(3, 10)|random / 10)|round(1) %}
+      <div 
+        class="drop{% if i % 3 == 0 %} front{% endif %}" 
+        style="
+          left: {{ left }}vw;
+          animation-duration: {{ duration }}s;
+          animation-delay: {{ delay }}s;
+          opacity: {{ opacity }};
+          width: 2px;">
+      </div>
+    {% endfor %}
+  </div>
+  <div class="Heading">
+    <h1>Gazhal</h1>
+  </div>
+  <div class="subheadGlow">
+    <h3>CHECKER</h3>
+    <div class="scrlBtn"><button onclick="scrollToMain()"><i class='bx bx-down-arrow-alt'></i></button></div>
+  </div>
+</div>
+
+<main lang="hi" id="main">
+  <div class="gazhalWrapper">
+    <form method="POST">
+      <div class="gazhalContent">
+        <textarea name="Gazhal" id="Gazhal" 
+        {% if user.is_authenticated %}
+        placeholder="Enter your Gazhal here, {{user.username}}!"
+        {% else %}
+        placeholder="Enter your Gazhal here!"
+        {% endif %}></textarea>
+      </div>
+      <div class="gazhalFooter">
+        <h2>Enter your<br>Gazhal</h2>
+        <img src="{{ url_for('static', filename='pppointed.svg') }}" height="450px" width="450px">
+        <button type="submit">Check</button>
+      </div>
+    </form>
+  </div>
+</main>
+
+<div class="analysisWrapper">
+  {% if lines %}
+    <div class="analysisUL" id="anal">
+      <ul>
+        {% for coup_num, coup in lines.items() %}
+          {% for line_num, words in coup.items() %}
+            <li>
+              <div class="lineCard">
+                <div class="lineText">
+                  {% for word_no, word_dict in words.items() %}
+                    {% if word_no != "beher" %}
+                      {% for word in word_dict.keys() %}
+                        {{ word }}&nbsp;
+                      {% endfor %}
+                    {% endif %}
+                  {% endfor %}
+                </div>
+                <div class="segmentGrid">
+                  {% for word_no, word_dict in words.items() %}
+                    {% if word_no != "beher" %}
+                      {% for word, segments in word_dict.items() %}
+                        {% for segment, data in segments.items() %}
+                          {% if data.score is defined and data.color is defined %}
+                            <div class="segmentBlock" style="--score: {{ data.score }}; color: {{ data.color }};">
+                              <span class="segment">{{ segment }}</span>
+                              <span class="score">{{ data.score }}</span>
+                            </div>
+                          {% endif %}
+                        {% endfor %}
+                      {% endfor %}
+                    {% endif %}
+                  {% endfor %}
+                </div>
+              </div>
+            </li>
+          {% endfor %}
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+</div>
+
+{% endblock %}
